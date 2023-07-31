@@ -1,0 +1,97 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap Navbar</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target="#myNavbar"
+          >
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Categories</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="#"><span class="glyphicon glyphicon-user"></span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search..." />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row spacer">
+        <div class="col-md-4" *ngFor="let item of CouponsGrid">
+          <div class="thumbnail">
+            <img [src]="item.image_url" alt="Image 1" />
+            <div class="caption">
+              <h3>{{ item.discount }}</h3>
+              <p>{{ item.expiry_date }}</p>
+              <p>{{ item.description }}</p>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">More Info</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+   
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{SelectedData.name}}</h4>
+                </div>
+                <div class="modal-body">
+                    <img [src]="SelectedData.image_url" alt="Product Image" class="img-responsive">
+                    <div class="description">
+                        <p>{{SelectedData.description}}</p>
+                        <p>Expiry Date: {{SelectedData.expiryDate}}</p>
+                        <p>Discount: {{SelectedData.discount}}</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Buy/Exchange</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+</html> -->
+
+<router-outlet></router-outlet>
