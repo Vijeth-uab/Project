@@ -1,0 +1,57 @@
+/* Custom styles for the My Coupons page */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  .coupon-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .coupon-list li {
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  h3 {
+    margin-bottom: 10px;
+  }
+  
+  .btn-primary {
+    display: block;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

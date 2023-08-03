@@ -1,0 +1,56 @@
+/* Custom styles for the coupon details page */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  .coupon-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .coupon-description {
+    text-align: center;
+  }
+  
+  .expiry-date {
+    text-align: center;
+    margin-top: 10px;
+    font-style: italic;
+  }
+  
+  .options {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+  .options .btn {
+    margin: 0 10px;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

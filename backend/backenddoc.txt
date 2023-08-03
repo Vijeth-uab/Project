@@ -1,0 +1,54 @@
+completed
+
+login:api/login
+signup:api/signUp
+add coupons:api/addCoupons
+get all coupons:api/getCoupons
+get coupons by id:/api/getCouponsById/<int:cid>
+search coupons:api/searchCoupons (optional but decided to work from frontend using pipe so stick to pipe)
+delete coupon: /api/deleteCoupon/<int:cid>
+
+pending
+transaction:
+get:api/getTransaction (use it in traded coupons to display in the grid )
+post:api/addTransaction (when click on submit/exchange in the selected coupon page)
+
+
+
+
+
+
+
+
+
+signUp:
+
+$uri = "http://127.0.0.1:5000/api/signup"
+$headers = @{ "Content-Type" = "application/json" }
+$body = @{
+    "firstname" = "John"
+    "lastname" = "Doe"
+    "phonenumber" = "1234567890"
+    "email" = "john.doe@example.com"
+    "password" = "mypassword"
+    "confirmpassword" = "mypassword"
+} | ConvertTo-Json
+
+$response = Invoke-WebRequest -Uri $uri -Method POST -Headers $headers -Body $body
+$response.Content
+
+------------------------------------------------------------------------------------------------------------
+
+login:
+
+$uri = "http://127.0.0.1:5000/api/login"
+$headers = @{ "Content-Type" = "application/json" }
+$body = @{
+    "email" = "john.doe@example.com"
+    "password" = "mypassword"
+} | ConvertTo-Json
+
+$response = Invoke-WebRequest -Uri $uri -Method POST -Headers $headers -Body $body
+$response.Content
+
+-------------------------------------------------------------------------------------------------------------

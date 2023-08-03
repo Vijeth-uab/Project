@@ -13,43 +13,43 @@ conn_users = sqlite3.connect(Users_db)
 conn_coupons = sqlite3.connect(Coupons_db)
 
 # API for signup
-@app.route('/api/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method =='POST':
-        fname = request.form['fname']
-        lname = request.form['lname']
-        email = request.form['email']
-        password = request.form['pwd']
-        confirm_password = request.form['cpwd']
+# @app.route('/api/signup', methods=['GET', 'POST'])
+# def signup():
+#     if request.method =='POST':
+#         fname = request.form['fname']
+#         lname = request.form['lname']
+#         email = request.form['email']
+#         password = request.form['pwd']
+#         confirm_password = request.form['cpwd']
 
-        if password == confirm_password:
-            print("Password matches")
+#         if password == confirm_password:
+#             print("Password matches")
             
 
-            validation_errors = validate_password(password)
-            if not validation_errors:
-                print("Password is valid!")
-                with conn_users:
-                    cur = conn_users.cursor()
-                    cur.execute("SELECT * FROM credentials WHERE email = ?",(email,))
-                    users = cur.fetchone()
-                    if users:
-                        return render_template('signup.html',userStatus="User Already exists.")
+#             validation_errors = validate_password(password)
+#         #     if not validation_errors:
+#         #         print("Password is valid!")
+#         #         with conn_users:
+#         #             cur = conn_users.cursor()
+#         #             cur.execute("SELECT * FROM credentials WHERE email = ?",(email,))
+#         #             users = cur.fetchone()
+#         #             if users:
+#         #                  return render_template('signup.html',userStatus="User Already exists.") 
                         
-                    else:
-                        cur.execute("INSERT INTO credentials(fname,lname,email,password) values (?,?,?,?)", (fname,lname,email,password))
-                        return render_template('signupSucc.html')
-            else:
-                print("Password is invalid. Errors:")
-                for error in validation_errors:
-                    print(error)
-                return render_template('signup.html',pwdFailures=validation_errors)
-        else:
-            print('Password did not match')
-            return render_template('signup.html',passwordError="Password is not matching")
+#         #             else:
+#         #                 cur.execute("INSERT INTO credentials(fname,lname,email,password) values (?,?,?,?)", (fname,lname,email,password))
+#         #                 return render_template('signupSucc.html')
+#         #     else:
+#         #         print("Password is invalid. Errors:")
+#         #         for error in validation_errors:
+#         #             print(error)
+#         #         return render_template('signup.html',pwdFailures=validation_errors)
+#         # else:
+#         #     print('Password did not match')
+#         #     return render_template('signup.html',passwordError="Password is not matching")
 
-    else:
-        return render_template('signup.html')
+#     # else:
+#     #     return render_template('signup.html')
 
 # Function to validate the password (used in signup API)
 def validate_password(password):
@@ -76,25 +76,25 @@ def validate_password(password):
 
 
 # API for login
-@app.route('/api/login', methods=['POST','GET'])
-def login():
-    if request.method =='POST':
-        email = request.form['email']
-        password = request.form['pwd']
-        print('email',email)
-        print('password',password)
-        with conn_users:
-                cur = conn_users.cursor()
-                cur.execute("SELECT * FROM credentials WHERE email = ? AND password = ?",(email,password))
-                users = cur.fetchall()
-                if users:
-                    cur.close()
-                    return render_template('loginSucc.html')
-                else:
-                    cur.close()
-                    return render_template('login.html',userStatus="Username or password missmatch")
-    else:
-        return render_template('login.html')
+# @app.route('/api/login', methods=['POST','GET'])
+# def login():
+    # if request.method =='POST':
+    #     email = request.form['email']
+    #     password = request.form['pwd']
+    #     print('email',email)
+    #     print('password',password)
+    #     with conn_users:
+    #             cur = conn_users.cursor()
+    #             cur.execute("SELECT * FROM credentials WHERE email = ? AND password = ?",(email,password))
+    #             users = cur.fetchall()
+    #             if users:
+    #                 cur.close()
+    #                 return render_template('loginSucc.html')
+    #             else:
+    #                 cur.close()
+    #                 return render_template('login.html',userStatus="Username or password missmatch")
+    # else:
+    #     return render_template('login.html')
     
 
 # API for rendering all the coupons
@@ -139,6 +139,15 @@ def couponSearch():
         return searchedCoupons
 
 
+
+# API for deleting coupons
+@app.route('/api/couponDelete/<int:cid>', methods=['POST','GET'])
+def couponDelete(cid):
+    with conn_coupons:
+        cur = conn_coupons.cursor()
+        cur.execute("DELETE FROM coupons WHERE cid = ?",(cid))
+        cur.close()
+        return "Coupon deleted"
 
 
 
@@ -193,21 +202,22 @@ if __name__ == '__main__':
         c = conn_users.cursor()
         c.execute('''CREATE TABLE IF NOT EXISTS credentials (
                         uid INTEGER PRIMARY KEY AUTOINCREMENT,
-                        fname varchar(30) not null,
-                        lname varchar(30) not null,
-                        email varchar(50) not null,
-                        password varchar(30) not null
+                        fname VARCHAR(30) NOT NULL,
+                        lname VARCHAR(30) NOT NULL,
+                        email VARCHAR(50) NOT NULL,
+                        password VARCHAR(30) NOT NULL
                     )''')
-        
+
     with conn_coupons:
         c = conn_coupons.cursor()
         c.execute('''CREATE TABLE IF NOT EXISTS coupons (
                         cid INTEGER PRIMARY KEY AUTOINCREMENT,
-                        couponName varchar(30) not null,
-                        couponDescription varchar(200) not null,
-                        couponImage varchar(200) not null,
-                        couponType varshar(30) not null,
-                        couponExpiry date not null
+                        couponName VARCHAR(30) NOT NULL,
+                        couponDescription VARCHAR(200) NOT NULL,
+                        couponImage VARCHAR(200) NOT NULL,
+                        couponType VARCHAR(30) NOT NULL,
+                        couponExpiry DATE NOT NULL,
+                        uid INTEGER,
                         CONSTRAINT fk_credentials
                             FOREIGN KEY (uid)
                             REFERENCES credentials(uid)
