@@ -41,6 +41,13 @@ def create_table():
                     CONSTRAINT fk_credentials
                     FOREIGN KEY (uid)
                     REFERENCES users(id))''')
+    c.execute('''CREATE TABLE IF NOT EXISTS tradedcoupons (
+                    transactionID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    couponID INTEGER,
+                    userID INTEGER,
+                    FOREIGN KEY (couponID) REFERENCES coupons (cid),
+                    FOREIGN KEY (userID) REFERENCES users (id)
+                )''')
     c.execute('''CREATE TABLE IF NOT EXISTS tasks (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     task TEXT NOT NULL,
@@ -102,6 +109,45 @@ def get_coupons():
                 'couponType': row[3],
                 'couponImage': row[4],
                 # 'couponExpiry': row[5].strftime('%Y-%m-%d')
+            }
+            serialized_coupons.append(serialized_coupon)
+
+        return jsonify(serialized_coupons), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/getMyCoupons/<int:uid>', methods=['GET'])
+def get_my_coupons(uid):
+    try:
+        # Fetch all coupons from the 'coupons' table using raw SQL query
+        query = """
+            SELECT c.cid AS couponID, c.couponName, c.couponDescription, c.couponType,
+            c.couponImage, c.couponExpiry, u.id AS userID, u.firstname, u.lastname, u.phonenumber, u.email
+            FROM coupons AS c
+            JOIN users AS u ON c.uid = u.id
+            WHERE c.uid = ?
+        """, (uid,).fetchall()
+      
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        result = c.execute(query).fetchall()
+
+        # Serialize the coupons to a list of dictionaries
+        serialized_coupons = []
+        for row in result:
+            serialized_coupon = {
+                'couponID': row[0],
+                'couponName': row[1],
+                'couponDescription': row[2],
+                'couponType': row[3],
+                'couponImage': row[4],
+                'couponExpiry': row[5].strftime('%Y-%m-%d'),
+                'userID': row[6],
+                'firstname': row[7],
+                'lastname': row[8],
+                'phonenumber': row[9],
+                'email': row[10],
             }
             serialized_coupons.append(serialized_coupon)
 
@@ -283,6 +329,46 @@ def task_detail(task_id):
         conn.commit()
         conn.close()
         return jsonify({'message': 'Task deleted successfully'}), 200
+
+@app.route('/api/getTradedCoupons/<int:userID>', methods=['GET'])
+def get_traded_coupons(userID):
+    try:
+        # Fetch all coupons from the 'coupons' table using raw SQL query
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        result = c.execute("""
+            SELECT tc.transactionID, c.cid AS couponID, c.couponName, c.couponDescription, c.couponType,
+            c.couponImage, c.couponExpiry, u.id AS userID, u.firstname, u.lastname, u.phonenumber, u.email
+            FROM tradedcoupons AS tc
+            JOIN coupons AS c ON tc.couponID = c.cid
+            JOIN users AS u ON tc.userID = u.id
+            WHERE tc.userID = ?
+        """, (userID,)).fetchall()
+
+
+        # Serialize the coupons to a list of dictionaries
+        serialized_coupons = []
+        for row in result:
+            serialized_coupon = {
+                'transactionID': row[0],
+                'couponID': row[1],
+                'couponName': row[2],
+                'couponDescription': row[3],
+                'couponType': row[4],
+                'couponImage': row[5],
+                'couponExpiry': row[6].strftime('%Y-%m-%d'),
+                'userID': row[7],
+                'firstname': row[8],
+                'lastname': row[9],
+                'phonenumber': row[10],
+                'email': row[11],
+            }
+            serialized_coupons.append(serialized_coupon)
+
+        return jsonify(serialized_coupons), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     create_table()
