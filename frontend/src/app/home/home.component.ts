@@ -21,9 +21,9 @@ export class HomeComponent {
     this.taskservice.getAllCoupons().subscribe((resp) => {
       if (resp && resp.length) {
         this.CouponsGrid = resp;
-        console.log(this.CouponsGrid)
+        console.log("------",this.CouponsGrid)
       } else {
-        console.error("No Data Found");
+        console.log("No Data Found");
       }
     });
   }

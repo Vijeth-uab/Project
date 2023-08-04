@@ -106,8 +106,9 @@ def get_coupons():
                 'cid': row[0],
                 'couponName': row[1],
                 'couponDescription': row[2],
-                'couponType': row[3],
-                'couponImage': row[4],
+                'couponImage': row[3],
+                'couponType': row[4],
+                'couponExpiry': row[5],
                 # 'couponExpiry': row[5].strftime('%Y-%m-%d')
             }
             serialized_coupons.append(serialized_coupon)

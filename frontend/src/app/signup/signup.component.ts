@@ -42,6 +42,7 @@ export class SignupComponent {
   }
 
   onSubmit() {
+    console.log("onSubmit is working----------")
     if (this.signUpForm.valid) {
       var userobj = {
         "firstname": this.signUpForm.get('first_name')?.value,
@@ -54,7 +55,7 @@ export class SignupComponent {
       
       this.taskservice.signUp(userobj).subscribe((res) => {
         console.log(res)
-        alert(res);
+        // alert(res);
         this.router.navigate(['/login']);
       });
       console.log(this.signUpForm.value);

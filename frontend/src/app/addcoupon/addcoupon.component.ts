@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../task.service';
+import { Router } from '@angular/router'; // Import the Router service
 
 interface Coupon {
   uid:string;
@@ -24,7 +25,7 @@ export class AddcouponComponent {
     expiryDate: '',
     type: 'discount',
   };
-  constructor(private fb: FormBuilder, private taskservice: TaskService) {}
+  constructor(private fb: FormBuilder, private taskservice: TaskService, private router: Router) {}
 
   ngOnInit() {
     this.createCouponForm();
@@ -69,6 +70,7 @@ export class AddcouponComponent {
     console.log('Description:', this.coupon.description);
     console.log('Expiry Date:', this.coupon.expiryDate);
     console.log('Coupon Type:', this.coupon.type);
+    this.router.navigate(['/home']);
     this.taskservice.addCoupon(obj).subscribe((res) => {
       console.log(res);
     });

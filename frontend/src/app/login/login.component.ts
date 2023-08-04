@@ -60,7 +60,7 @@ export class LoginComponent {
             this.loginInProgress = false;
           }, 2000);
 
-          alert(res.message);
+          // alert(res.message);
         },
         (error: any) => {
           // Handle any errors that occurred during the login process

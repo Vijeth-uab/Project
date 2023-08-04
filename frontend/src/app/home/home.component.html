@@ -24,14 +24,25 @@
           </div>
         </div>
       </div>
+
+      <!-- Add Coupon Button -->
+      <div class="row">
+        <div class="add-coupon-button-container d-flex justify-content-end">
+          <a href="addcoupon">
+            <button class="btn btn-primary"> Add Coupon</button>
+          </a>
+        </div>
+      </div>
+
       <div class="row spacer">
         <div class="col-md-4" *ngFor="let item of CouponsGrid">
-          <div class="thumbnail">
-            <img [src]="item.image_url" alt="Image 1" />
+          <div class="thumbnail coupon-item">
+            <img [src]="item.couponImage" alt="Image 1" />
             <div class="caption">
-              <h3>{{ item.discount }}</h3>
-              <p>{{ item.expiry_date }}</p>
-              <p>{{ item.description }}</p>
+              <p><b>Coupon name -</b> {{ item.couponName }}</p>
+              <p><b>Coupon Description -</b> {{ item.couponDescription }}</p>
+              <p><b>Coupon Type -</b> {{ item.couponType }}</p>
+              <p><b>Expires on -</b> {{ item.couponExpiry }}</p>
               <button
                 class="btn btn-primary"
                 data-toggle="modal"
