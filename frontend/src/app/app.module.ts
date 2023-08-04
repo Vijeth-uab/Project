@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 
+
+
+
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +18,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { TradedcouponsComponent } from './tradedcoupons/tradedcoupons.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,8 @@ import { SignupComponent } from './signup/signup.component';
     PaymentComponent,
     TradedcouponsComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

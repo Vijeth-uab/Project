@@ -11,20 +11,25 @@ import { PaymentComponent } from './payment/payment.component';
 import { TradedcouponsComponent } from './tradedcoupons/tradedcoupons.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component';
+
+
+
 
 const routes: Routes = [
-  { path: '', redirectTo: 'tasks', pathMatch: 'full' },
-  { path: 'tasks', component: TaskListComponent },
+  { path: "",pathMatch: 'full', redirectTo: "/home"},
+  {path: "home", component: HomeComponent},
+  { path: "tasks", component: TaskListComponent },
  // { path: '**', redirectTo: 'tasks' }, // Redirect any unknown route to the tasks component
- { path: 'about', component: AboutComponent },
- { path: 'contact', component: ContactComponent },
- { path: 'addcoupon', component: AddcouponComponent },
- { path: 'coupondetails', component: CoupondetailsComponent },
- { path: 'mycoupons', component: MycouponsforexchangeComponent },
- { path: 'payment', component: PaymentComponent  },
- { path: 'tradedcoupons', component: TradedcouponsComponent },
- { path: 'login', component: LoginComponent },
- { path: 'signup', component: SignupComponent },
+ { path: "about", component: AboutComponent },
+ { path: "contact", component: ContactComponent },
+ { path: "addcoupon", component: AddcouponComponent },
+ { path: "coupondetails", component: CoupondetailsComponent },
+ { path: "mycoupons", component: MycouponsforexchangeComponent },
+ { path: "payment", component: PaymentComponent  },
+ { path: "tradedcoupons", component: TradedcouponsComponent },
+ { path: "login", component: LoginComponent },
+ { path: "signup", component: SignupComponent },
 ];
 
 @NgModule({
