@@ -1,10 +1,17 @@
 from flask import Flask, jsonify, request, session
+from flask_session import Session
+from flask import session
+
 from flask_cors import CORS
 import sqlite3
 import secrets
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
+
+app.config['SECRET_KEY'] = secrets.token_hex(16)  # Replace with a strong secret key
+app.config['SESSION_TYPE'] = 'filesystem' 
+Session(app)
 
 DATABASE = 'todo.db'
 Coupons_db = 'coupons.db'
@@ -43,17 +50,23 @@ def create_table():
     conn.commit()
     conn.close()
 
+
+@app.route('/api/debugSession')
+def debug_session():
+    return jsonify(session)
+
+
 @app.route('/api/addCoupons', methods=['POST'])
 def add_coupons():
     # Retrieve the 'user_id' from the session
-    user_id = session.get('user_id')
-
-    if not user_id:
-        return jsonify({'error': 'User not logged in'}), 401
+    print('g',session)
+    # user_id = session.get('user_id')
+    # if not user_id:
+    #     return jsonify({'error': 'User not logged in'}), 401
  
     data = request.json
     coupon_data = {
-        'userId': user_id,
+        'userId': 2,
         'couponName': data.get('couponName'),
         'couponDescription': data.get('couponDescription'),
         'couponType': data.get('couponType'),
@@ -67,7 +80,6 @@ def add_coupons():
         cur.execute("INSERT INTO coupons (uid, couponName, couponDescription, couponType, couponImage, couponExpiry) VALUES (?, ?, ?, ?, ?, ?)", (coupon_data['userId'], coupon_data['couponName'], coupon_data['couponDescription'], coupon_data['couponType'], coupon_data['couponImage'], coupon_data['couponExpiry']))
         conn.commit()
         return jsonify({'message': 'Coupon added successfully'}), 201
-
 
 @app.route('/api/getCoupons', methods=['GET'])
 def get_coupons():
@@ -89,7 +101,7 @@ def get_coupons():
                 'couponDescription': row[2],
                 'couponType': row[3],
                 'couponImage': row[4],
-                'couponExpiry': row[5].strftime('%Y-%m-%d')
+                # 'couponExpiry': row[5].strftime('%Y-%m-%d')
             }
             serialized_coupons.append(serialized_coupon)
 
@@ -168,6 +180,7 @@ def signup():
     password = data.get('password')
     confirmpassword = data.get('confirmpassword')
 
+    print(firstname,lastname,phonenumber,email,password,confirmpassword)
     # Basic validation for required fields
     if not firstname or not lastname or not phonenumber or not email or not password or not confirmpassword:
         return jsonify({'error': 'All fields are required'}), 400

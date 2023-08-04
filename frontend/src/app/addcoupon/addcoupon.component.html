@@ -1,50 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Coupon</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="addCoupon.css"> -->
-</head>
-<body>
-   
+<div class="container">
+  <h2>Add Coupon</h2>
+  <form [formGroup]="couponForm" (ngSubmit)="addCoupon()">
+    <!-- Coupon Title -->
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" formControlName="title" required>
+      <div *ngIf="couponForm.get('title')?.invalid && (couponForm.get('title')?.dirty || couponForm.get('title')?.touched)" class="text-danger">
+        Title is required.
+      </div>
+    </div>
 
-  <div class="container">
-    <h2>Add Coupon</h2>
-    <form>
-      <!-- Coupon Title -->
-      <div class="form-group">
-        <label for="coupon-title">Title:</label>
-        <input type="text" class="form-control" id="coupon-title" name="coupon-title" required>
+    <!-- Coupon Description -->
+    <div class="form-group">
+      <label for="coupon-description">Description:</label>
+      <textarea class="form-control" id="coupon-description" formControlName="description" rows="3" required></textarea>
+      <div *ngIf="couponForm.get('description')?.invalid && (couponForm.get('description')?.dirty || couponForm.get('description')?.touched)" class="text-danger">
+        Description is required.
       </div>
-      
-      <!-- Coupon Description -->
-      <div class="form-group">
-        <label for="coupon-description">Description:</label>
-        <textarea class="form-control" id="coupon-description" name="coupon-description" rows="3" required></textarea>
+    </div>
+
+    <!-- Expiry Date -->
+    <div class="form-group">
+      <label for="expiry-date">Expiry Date:</label>
+      <input type="date" class="form-control" id="expiry-date" formControlName="expiryDate" required>
+      <div *ngIf="couponForm.get('expiryDate')?.invalid && (couponForm.get('expiryDate')?.dirty || couponForm.get('expiryDate')?.touched)" class="text-danger">
+        Expiry Date is required.
       </div>
-      
-      <!-- Expiry Date -->
-      <div class="form-group">
-        <label for="expiry-date">Expiry Date:</label>
-        <input type="date" class="form-control" id="expiry-date" name="expiry-date" required>
+    </div>
+
+    <!-- Type of Coupon -->
+    <div class="form-group">
+      <label for="coupon-type">Type of Coupon:</label>
+      <select class="form-control" id="coupon-type" formControlName="type" required>
+        <option value="discount">Discount</option>
+        <option value="free-item">Free Item</option>
+        <option value="cashback">Cashback</option>
+      </select>
+      <div *ngIf="couponForm.get('type')?.invalid && (couponForm.get('type')?.dirty || couponForm.get('type')?.touched)" class="text-danger">
+        Coupon Type is required.
       </div>
-      
-      <!-- Type of Coupon -->
-      <div class="form-group">
-        <label for="coupon-type">Type of Coupon:</label>
-        <select class="form-control" id="coupon-type" name="coupon-type" required>
-          <option value="discount">Discount</option>
-          <option value="free-item">Free Item</option>
-          <option value="cashback">Cashback</option>
-        </select>
-      </div>
-      
-      <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary">Add Coupon</button>
-    </form>
-  </div>
-</body>
-</html>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary"  [disabled]="couponForm.invalid">Add Coupon</button>
+  </form>
+</div>

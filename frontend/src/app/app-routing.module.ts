@@ -17,7 +17,7 @@ import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
-  { path: "",pathMatch: 'full', redirectTo: "/home"},
+  { path: "",pathMatch: 'full', redirectTo: "/login"},
   {path: "home", component: HomeComponent},
   { path: "tasks", component: TaskListComponent },
  // { path: '**', redirectTo: 'tasks' }, // Redirect any unknown route to the tasks component

@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+.navbar-header {
+    float: none;
+}
+.navbar-collapse {
+    text-align: center;
+}
+.navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+.navbar-right {
+    float: right !important;
+}
+.spacer {
+    margin-top: 20px;
+}
