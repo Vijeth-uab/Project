@@ -58,11 +58,19 @@ export class TaskService {
     };
     return this.http.post<any>(this.baseUrl + 'addCoupons', coupon, options);
   }
-
-
-  getTradedCoupons() {
-    return this.http.get<any[]>(this.baseUrl + 'getTradedCoupons');
+  getTradedCoupons(user_id: any): Observable<any> {
+    const url = `${this.baseUrl}/getTradedCoupons/${user_id}`;
+    return this.http.get<any>(url);
   }
+
+  postTradedCoupons(tradedCoupon: any): Observable<any> {
+    const options = { 
+      headers: this.headers,
+      withCredentials: true // Add the withCredentials option here
+    };
+    return this.http.post<any>(this.baseUrl + 'postTradedCoupons', tradedCoupon, options);
+  }
+ 
   addTransaction(transaction: any): Observable<any> {
     return this.http.post<any>(this.baseUrl+'tradedCoupons',  transaction , { headers: this.headers });
   }
