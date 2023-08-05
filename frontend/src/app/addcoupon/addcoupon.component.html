@@ -32,9 +32,10 @@
     <div class="form-group">
       <label for="coupon-type">Type of Coupon:</label>
       <select class="form-control" id="coupon-type" formControlName="type" required>
-        <option value="discount">Discount</option>
-        <option value="free-item">Free Item</option>
-        <option value="cashback">Cashback</option>
+        <option value="food">Food</option>
+        <option value="clothing">Appreal</option>
+        <option value="electronics">Electronics</option>
+        <option value="other">Other</option>
       </select>
       <div *ngIf="couponForm.get('type')?.invalid && (couponForm.get('type')?.dirty || couponForm.get('type')?.touched)" class="text-danger">
         Coupon Type is required.
