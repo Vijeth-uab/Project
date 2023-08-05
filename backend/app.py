@@ -5,6 +5,10 @@ from flask import session
 from flask_cors import CORS
 import sqlite3
 import secrets
+import smtplib
+from email.message import EmailMessage
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -370,6 +374,78 @@ def get_traded_coupons(userID):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+# @app.route('/api/sendEmail', methods=['POST'])
+# def send_email():
+#     data = request.json
+#     recipient_email = data.get('email')
+#     sender_email = 'bheemprashanthreddy4@gmail.com'  # Replace with the recipient email address
+
+#     msg = EmailMessage()
+#     msg.set_content(data.get('message'))
+#     msg['Subject'] = 'Contact Form Submission'
+#     msg['From'] = sender_email
+#     msg['To'] = recipient_email
+#     SMTP_HOST = 'smtp.gmail.com'
+#     SMTP_PORT = 587  
+#     SMTP_USERNAME = 'bheemprashanthreddy4@gmail.com' #keep the sender gmail address
+#     SMTP_PASSWORD = 'Prashanth@48' #keep the sender gmail password
+#     try:
+#         with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+#             server.starttls()
+#             server.login(SMTP_USERNAME, SMTP_PASSWORD)
+#             server.send_message(msg)
+#         return jsonify({'message': 'Email sent successfully'}), 200
+#     except Exception as e:
+#         print(e)
+#         return jsonify({'error': 'Failed to send email'}), 500
+SMTP_HOST = 'smtp.gmail.com'
+SMTP_PORT = 587  # Replace with the appropriate SMTP port for your server
+SMTP_USERNAME = 'avinashthatavarthi123@gmail.com'
+SMTP_PASSWORD = 'ARROgance800@#$'
+
+
+@app.route('/api/sendEmail', methods=['POST'])
+def send_email():
+    # Parse data from the request (assuming it's a JSON request)
+    data = request.get_json()
+    name = data.get('name')
+    email = data.get('email')
+    message = data.get('message')
+
+    # Create the email content
+    msg = MIMEMultipart()
+    msg['From'] = SMTP_USERNAME
+    msg['To'] = email
+    msg['Subject'] = 'Contact Form Submission'
+
+    body = f"Hello {name},\n\nThank you for contacting us. Your message has been received:\n\n{message}"
+    msg.attach(MIMEText(body, 'plain'))
+
+    # Connect to the SMTP server and send the email
+    try:
+        server = smtplib.SMTP(SMTP_HOST, SMTP_PORT)
+        server.starttls()
+        server.login(SMTP_USERNAME, SMTP_PASSWORD)
+        server.sendmail(SMTP_USERNAME, email, msg.as_string())
+        server.quit()
+
+        response_data = {
+            'success': True,
+            'message': 'Email sent successfully'
+        }
+
+    except Exception as e:
+        response_data = {
+            'success': False,
+            'message': f'Error sending email: {str(e)}'
+        }
+
+    # Set the CORS headers in the response
+    response = jsonify(response_data)
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:4200')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 
 if __name__ == '__main__':
     create_table()

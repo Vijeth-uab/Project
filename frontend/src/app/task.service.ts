@@ -74,4 +74,12 @@ export class TaskService {
   addTransaction(transaction: any): Observable<any> {
     return this.http.post<any>(this.baseUrl+'tradedCoupons',  transaction , { headers: this.headers });
   }
+  sendEmail(data:any){
+    const options = { 
+      headers: this.headers,
+      withCredentials: true // Add the withCredentials option here
+    };
+    return this.http.post<any>(this.baseUrl+'sendEmail',  data , options);
+
+  }
 }
