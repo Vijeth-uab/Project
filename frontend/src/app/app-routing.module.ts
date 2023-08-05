@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: "home", component: HomeComponent},
   { path: "tasks", component: TaskListComponent },
  // { path: '**', redirectTo: 'tasks' }, // Redirect any unknown route to the tasks component
- { path: "about", component: AboutComponent },
+//  { path: "about", component: AboutComponent },
  { path: "contact", component: ContactComponent },
  { path: "addcoupon", component: AddcouponComponent },
  { path: "coupondetails", component: CoupondetailsComponent },
