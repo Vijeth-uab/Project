@@ -9,6 +9,7 @@ export class TaskService {
   private backendUrl = 'http://127.0.0.1:5000/api/tasks'; // Update the backend URL
   private baseUrl = 'http://127.0.0.1:5000/api/'; // Update the backend URL
   private headers: HttpHeaders;
+  Tarray:any=[];
   constructor(private http: HttpClient) {
 
     this.headers = new HttpHeaders({

@@ -40,4 +40,18 @@ export class HomeComponent {
       }
     });
   }
+
+  viewcoupon(item:any){
+    var id=Date.now().toString(36)
+   this.taskservice.Tarray.push({
+    id:id,
+    couponName:item.couponName,
+    couponDescription :item.couponDescription ,
+    couponType :item.couponType 
+  
+  
+  
+  })
+    alert(`This coupon is traded please check the traded coupon grid and the coupon code is : \n${id} `)
+  }
 }

@@ -17,13 +17,14 @@ export class TradedcouponsComponent {
 
   gettradedcoupon() {
     var id=localStorage.getItem('uid')
-    this.taskservice.getTradedCoupons(id).subscribe((resp) => {
-      if (resp && resp.length) {
-        this.tradedCoupons = resp;
-        console.log("------",this.tradedCoupons)
-      } else {
-        console.log("No Data Found");
-      }
-    });
+    this.tradedCoupons=this.taskservice.Tarray
+    // this.taskservice.getTradedCoupons(id).subscribe((resp) => {
+    //   if (resp && resp.length) {
+    //     this.tradedCoupons = resp;
+    //     console.log("------",this.tradedCoupons)
+    //   } else {
+    //     console.log("No Data Found");
+    //   }
+    // });
   }
 }

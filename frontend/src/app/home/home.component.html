@@ -44,11 +44,9 @@
               <p><b>Coupon Type -</b> {{ item.couponType }}</p>
               <p><b>Expires on -</b> {{ item.couponExpiry }}</p>
               <button
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#myModal"
+                class="btn btn-primary" (click)="viewcoupon(item)"
               >
-                More Info
+                View coupon code
               </button>
             </div>
           </div>
@@ -56,7 +54,7 @@
       </div>
     </div>
 
-    <div
+    <!-- <div
       id="myModal"
       class="modal fade"
       tabindex="-1"
@@ -84,6 +82,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </body>
 </html>
