@@ -21,6 +21,20 @@ export class HomeComponent {
     this.taskservice.getAllCoupons().subscribe((resp) => {
       if (resp && resp.length) {
         this.CouponsGrid = resp;
+        this.CouponsGrid.forEach((element: any)=> {
+        //  element['img']='assets/lorem.jpg'
+
+          if(element.couponType=='food'){
+            element['img']='assets/food.jpeg'
+          } else if(element.couponType=='clothing'){
+            element['img']='assets/clothing.png'
+          }else if(element.couponType=='electronics'){
+            element['img']='assets/lorem.jpg'
+          }else if(element.couponType=='other'){
+            element['img']='assets/lorem.jpg'
+          }
+
+        });
         console.log("------",this.CouponsGrid)
       } else {
         console.log("No Data Found");
